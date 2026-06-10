@@ -125,25 +125,6 @@ partial class CalculatorForm
         tlpButtonsPanel.TabIndex = 1;
 
         btnClear.ForeColor = Color.OrangeRed;
-        btnClear.Click += clearButton_Click;
-        btnBackspace.Click += backspaceButton_Click;
-        btnPercent.Click += percentButton_Click;
-        btnDivide.Click += operationButton_Click;
-        btnMultiply.Click += operationButton_Click;
-        btnSubtract.Click += operationButton_Click;
-        btnAdd.Click += operationButton_Click;
-        btnDecimal.Click += decimalButton_Click;
-        btnEquals.Click += equalsButton_Click;
-        btnZero.Click += numberButton_Click;
-        btnOne.Click += numberButton_Click;
-        btnTwo.Click += numberButton_Click;
-        btnThree.Click += numberButton_Click;
-        btnFour.Click += numberButton_Click;
-        btnFive.Click += numberButton_Click;
-        btnSix.Click += numberButton_Click;
-        btnSeven.Click += numberButton_Click;
-        btnEight.Click += numberButton_Click;
-        btnNine.Click += numberButton_Click;
 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
