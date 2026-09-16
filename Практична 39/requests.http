@@ -15,9 +15,15 @@ Content-Type: application/json
   "value": 1000
 }
 
+###
+
 GET {{baseUrl}}/postings
 
+###
+
 GET {{baseUrl}}/postings/1
+
+###
 
 PUT {{baseUrl}}/postings/1
 Content-Type: application/json
@@ -34,5 +40,7 @@ Content-Type: application/json
   "depth": 5,
   "value": 1200
 }
+
+###
 
 DELETE {{baseUrl}}/postings/1
