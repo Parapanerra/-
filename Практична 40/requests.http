@@ -1,0 +1,46 @@
+@baseUrl = http://localhost:5079
+
+POST {{baseUrl}}/postings
+Content-Type: application/json
+
+{
+  "from": "Kyiv",
+  "to": "Lviv",
+  "content": "Documents",
+  "deliveryType": 1,
+  "weight": 2.5,
+  "width": 10,
+  "height": 20,
+  "depth": 5,
+  "value": 1000
+}
+
+###
+
+GET {{baseUrl}}/postings
+
+###
+
+GET {{baseUrl}}/postings/1
+
+###
+
+PUT {{baseUrl}}/postings/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "from": "Kyiv",
+  "to": "Odesa",
+  "content": "Updated documents",
+  "deliveryType": 2,
+  "weight": 3,
+  "width": 10,
+  "height": 20,
+  "depth": 5,
+  "value": 1200
+}
+
+###
+
+DELETE {{baseUrl}}/postings/1
