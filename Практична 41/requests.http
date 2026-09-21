@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:5111
+
+###
+# 1. Отримати всі оголошення
+###
+GET {{baseUrl}}/postings
+Accept: application/json
+
+###
+# 2. Створити нове оголошення
+###
+POST {{baseUrl}}/postings
+Content-Type: application/json
+
+{
+  "from": "Київ",
+  "to": "Львів",
+  "content": "Книга",
+  "deliveryType": 1,
+  "weight": 2.5,
+  "width": 30,
+  "height": 40,
+  "depth": 20,
+  "value": 150,
+  "description": "Для відправки"
+}
+
+###
+# 3. Отримати оголошення за ID
+# Після створення заміни 1 на реальний ID, що повернув сервер
+###
+GET {{baseUrl}}/postings/1
+Accept: application/json
+
+###
+# 4. Видалити оголошення за ID
+# Після створення заміни 1 на реальний ID, що повернув сервер
+###
+DELETE {{baseUrl}}/postings/1
+
+###
+# 5. Перевірка після видалення
+###
+GET {{baseUrl}}/postings
+Accept: application/json
