@@ -14,4 +14,7 @@
   <Folder Name="/04-Application Client/">
     <Project Path="PostService.App/PostService.App.csproj" DefaultStartup="true" />
   </Folder>
+  <Folder Name="/05-Generic Repository Demo/">
+    <Project Path="PostService.RepositoryDemo/PostService.RepositoryDemo.csproj" />
+  </Folder>
 </Solution>
