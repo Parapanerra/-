@@ -3,11 +3,18 @@ using PostService.Dtos;
 using PostService.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+    policy.WithOrigins("http://localhost:3000", "http://localhost:60648")
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
 
 builder.Services.AddScoped<IPostingRepository, PostingRepository>();
 builder.Services.AddScoped<IPostingService, PostingService>();
 
 var app = builder.Build();
+app.UseCors();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -15,7 +22,6 @@ using (var scope = app.Services.CreateScope())
     repository.CreateDb();
 }
 
-app.MapGet("/", () => "PostService API is running");
 
 app.MapGet("/postings", (IPostingService postingService) =>
 {

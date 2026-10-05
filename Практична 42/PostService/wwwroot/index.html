@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поштові відправлення</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; }
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+    <h1>Поштові відправлення</h1>
+    <p id="status">Завантаження відправлень…</p>
+    <table>
+        <thead id="table-header">
+            <tr>
+                <th scope="col" x-column="from">Відправник</th>
+                <th scope="col" x-column="to">Одержувач</th>
+                <th scope="col" x-column="content">Вміст</th>
+                <th scope="col" x-column="deliveryType">Тип доставки</th>
+                <th scope="col" x-column="weight">Вага, кг</th>
+                <th scope="col" x-column="width">Ширина, см</th>
+                <th scope="col" x-column="depth">Довжина, см</th>
+                <th scope="col" x-column="value">Оголошена вартість, грн</th>
+                <th scope="col" x-column="price">Ціна доставки, грн</th>
+            </tr>
+        </thead>
+        <tbody id="postings"></tbody>
+    </table>
+    <script>
+        // Сторінка й API працюють на одному сервері.
+        const apiUrl = '/postings';
+
+        async function loadData() {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Сервер повернув помилку: ' + response.status);
+            }
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+
+        function createCell(fieldName, model) {
+            const cell = document.createElement('td');
+            cell.textContent = model[fieldName];
+            return cell;
+        }
+
+        function renderTable(data) {
+            const tableBody = document.getElementById('postings');
+            const columns = document.getElementById('table-header').querySelectorAll('th');
+            tableBody.innerHTML = '';
+            for (const posting of data) {
+                const row = document.createElement('tr');
+                for (const column of columns) {
+                    const fieldName = column.getAttribute('x-column');
+                    row.appendChild(createCell(fieldName, posting));
+                }
+                tableBody.appendChild(row);
+            }
+        }
+
+        async function refresh() {
+            const status = document.getElementById('status');
+            status.textContent = 'Завантаження відправлень…';
+            try {
+                const postings = await loadData();
+                renderTable(postings);
+                status.textContent = postings.length === 0
+                    ? 'Відправлень немає.'
+                    : 'Дані завантажено.';
+            } catch (error) {
+                status.textContent = 'Не вдалося завантажити відправлення: ' + error.message;
+                console.error(error);
+            }
+        }
+
+        refresh();
+    </script>
+</body>
+</html>
+
