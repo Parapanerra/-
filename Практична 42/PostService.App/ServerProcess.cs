@@ -10,6 +10,19 @@ internal sealed class ServerProcess : IDisposable
 
     public static ServerProcess? Start()
     {
+        // Вебзастосунок може вже працювати окремо. Не запускаємо другий сервер
+        // на тому самому порту: це відкривало системне вікно помилки.
+        try
+        {
+            using var client = new System.Net.Sockets.TcpClient();
+            client.Connect("localhost", 5211);
+            return null;
+        }
+        catch (System.Net.Sockets.SocketException)
+        {
+            // Порт вільний, запускаємо локальний PostService нижче.
+        }
+
         var projectPath = Path.GetFullPath(Path.Combine(
             AppContext.BaseDirectory, "..", "..", "..", "..", "PostService", "PostService.csproj"));
 
@@ -19,7 +32,7 @@ internal sealed class ServerProcess : IDisposable
         {
             UseShellExecute = false,
             CreateNoWindow = true,
-            WorkingDirectory = Path.GetDirectoryName(projectPath)!
+            WorkingDirectory = Directory.GetParent(Path.GetDirectoryName(projectPath)!)!.FullName
         };
         startInfo.ArgumentList.Add("run");
         startInfo.ArgumentList.Add("--no-build");

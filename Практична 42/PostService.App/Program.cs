@@ -10,6 +10,6 @@ internal static class Program
         ApplicationConfiguration.Initialize();
         _server = ServerProcess.Start();
         Application.ApplicationExit += (_, _) => _server?.Dispose();
-        Application.Run(new PostingList());
+        Application.Run(new PostServiceWindow());
     }
 }
