@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Редагування відправлення — PostService</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="edit.css">
+  <script src="edit.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="/#/">PostService</a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Відкрити меню" aria-expanded="false">☰</button>
+      <nav class="nav" id="nav" aria-label="Основна навігація">
+        <a href="/#/">Головна</a>
+        <a class="active" aria-current="page" href="/#/postings">Відправлення</a>
+        <a href="/#/about">Про програму</a>
+      </nav>
+    </header>
+    <main class="edit-page">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">ПОШТОВІ ВІДПРАВЛЕННЯ <span id="posting-id"></span></p>
+          <h1>Редагування відправлення</h1>
+          <p class="muted">Змініть дані та збережіть їх на сервері PostService.</p>
+        </div>
+      </div>
+      <div id="page-status" class="page-status" role="status" aria-live="polite">Завантаження відправлення…</div>
+      <form id="edit-form" class="posting-form" novalidate hidden>
+        <p class="form-note">Поля зі знаком * обов’язкові.</p>
+        <p class="form-error" id="form-error" role="alert" aria-live="assertive"></p>
+
+        <div class="field"><label for="from">Відправник *</label><input id="from" name="from" type="text" autocomplete="name" aria-describedby="error-from"><span class="field-error" id="error-from"></span></div>
+        <div class="field"><label for="to">Отримувач *</label><input id="to" name="to" type="text" aria-describedby="error-to"><span class="field-error" id="error-to"></span></div>
+        <div class="field"><label for="content">Вміст *</label><input id="content" name="content" type="text" aria-describedby="error-content"><span class="field-error" id="error-content"></span></div>
+        <div class="field"><label for="deliveryType">Тип доставки *</label><select id="deliveryType" name="deliveryType" aria-describedby="error-deliveryType"><option value="">Оберіть тип доставки</option><option value="1">Відділення</option><option value="2">Кур’єр</option><option value="3">Експрес-кур’єр</option></select><span class="field-error" id="error-deliveryType"></span></div>
+        <div class="field"><label for="weight">Вага, кг *</label><input id="weight" name="weight" type="text" inputmode="decimal" aria-describedby="error-weight"><span class="field-error" id="error-weight"></span></div>
+        <div class="field"><label for="width">Ширина, см *</label><input id="width" name="width" type="text" inputmode="numeric" aria-describedby="error-width"><span class="field-error" id="error-width"></span></div>
+        <div class="field"><label for="height">Висота, см *</label><input id="height" name="height" type="text" inputmode="numeric" aria-describedby="error-height"><span class="field-error" id="error-height"></span></div>
+        <div class="field"><label for="depth">Глибина, см *</label><input id="depth" name="depth" type="text" inputmode="numeric" aria-describedby="error-depth"><span class="field-error" id="error-depth"></span></div>
+        <div class="field"><label for="value">Оголошена цінність, грн</label><input id="value" name="value" type="text" inputmode="decimal" aria-describedby="error-value"><span class="field-error" id="error-value"></span></div>
+        <div class="field"><label for="description">Опис</label><textarea id="description" name="description" rows="2" aria-describedby="error-description"></textarea><span class="field-error" id="error-description"></span></div>
+        <div class="field"><label for="price">Вартість, грн</label><input id="price" type="text" readonly aria-label="Вартість доставки, обчислює сервер"><span class="field-error"></span></div>
+
+        <div class="form-actions">
+          <button class="button primary" id="save-button" type="button">Зберегти</button>
+          <button class="button" id="cancel-button" type="button">Скасувати</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

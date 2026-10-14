@@ -65,7 +65,7 @@ function renderAbout() {
 async function renderList() {
   app.innerHTML = `<section class="list-page"><h1>Список поштових відправлень</h1><div class="toolbar"><a class="button primary" href="#/postings/new">Нове відправлення</a><button class="button" id="edit-button" disabled>Редагувати</button><button class="button" id="details-button" disabled>Деталі</button><button class="button" id="delete-button" disabled>Видалити</button><span class="spacer"></span><button class="button" id="refresh-button">Оновити</button></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Відправник</th><th>Отримувач</th><th>Тип доставки</th><th>Вага, кг</th><th>Вартість, грн</th></tr></thead><tbody id="posting-rows"></tbody></table></div><div class="cards" id="posting-cards"></div><p class="status" id="list-status" role="status">Завантаження відправлень…</p></section>`;
   app.querySelector('#refresh-button').addEventListener('click', loadList);
-  app.querySelector('#edit-button').addEventListener('click', () => location.hash = `#/postings/${state.selectedId}/edit`);
+  app.querySelector('#edit-button').addEventListener('click', () => location.href = `/edit.html?id=${state.selectedId}`);
   app.querySelector('#details-button').addEventListener('click', () => location.hash = `#/postings/${state.selectedId}`);
   app.querySelector('#delete-button').addEventListener('click', () => confirmDelete(state.selectedId));
   await loadList();
@@ -106,7 +106,7 @@ function drawList() {
       select(id);
       const action = event.target.closest('[data-action]')?.dataset.action;
       if (action === 'details') location.hash = `#/postings/${id}`;
-      if (action === 'edit') location.hash = `#/postings/${id}/edit`;
+      if (action === 'edit') location.href = `/edit.html?id=${id}`;
       if (action === 'delete') confirmDelete(id);
     });
   });
