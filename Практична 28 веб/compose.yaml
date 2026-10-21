@@ -1,0 +1,22 @@
+name: pr28-postservice
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pr28-postservice-web
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: pr28-postservice-api
+    volumes:
+      - postings-data:/data
+    restart: unless-stopped
+volumes:
+  postings-data:

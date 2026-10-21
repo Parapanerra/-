@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+reference/
+*.exe
+*.zip
+verification/
+screenshots/
+*.msi

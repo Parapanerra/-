@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PostService — облік поштових відправлень</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="#/">PostService</a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Відкрити меню" aria-expanded="false">☰</button>
+      <nav class="nav" id="nav" aria-label="Основна навігація">
+        <a href="#/" data-route="home">Головна</a>
+        <a href="#/postings" data-route="postings">Відправлення</a>
+        <a href="#/about" data-route="about">Про програму</a>
+      </nav>
+    </header>
+    <main id="app" tabindex="-1"></main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="delete-dialog" aria-labelledby="delete-title">
+    <form method="dialog" class="dialog-content">
+      <h2 id="delete-title">Підтвердження видалення</h2>
+      <p id="delete-message"></p>
+      <p class="muted">Відновити запис після видалення неможливо.</p>
+      <div class="dialog-actions">
+        <button class="button" value="cancel">Скасувати</button>
+        <button class="button danger" id="confirm-delete" value="delete">Видалити</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

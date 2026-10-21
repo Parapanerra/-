@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+COPY src/ ./
+COPY packages/ /packages/
+RUN dotnet restore PostService/PostService.csproj --source /packages -p:NuGetAudit=false \
+    && dotnet publish PostService/PostService.csproj -c Release -o /out --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+COPY --from=build /out/ ./
+COPY src/PostService/PostingDb.db /seed/PostingDb.db
+COPY entrypoint.sh /entrypoint.sh
+RUN mkdir -p /data && chmod +x /entrypoint.sh
+ENV ASPNETCORE_URLS=http://+:8080
+ENV POSTSERVICE_DB="Data Source=/data/PostingDb.db;"
+EXPOSE 8080
+ENTRYPOINT ["sh", "/entrypoint.sh"]
