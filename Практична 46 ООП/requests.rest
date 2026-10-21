@@ -1,0 +1,28 @@
+@baseUrl = http://localhost:8046
+
+### Успішне отримання списку 200
+GET {{baseUrl}}/postings
+
+### Відсутній запис 404
+GET {{baseUrl}}/postings/2147483647
+
+### Некоректні дані 400 та словник errors
+POST {{baseUrl}}/postings
+Content-Type: application/json
+
+{"from":"","to":"","content":"","deliveryType":0,"weight":0,"width":0,"height":0,"depth":0}
+
+### Наявний маршрут, але запис уже відсутній 404
+DELETE {{baseUrl}}/postings/2147483647
+
+### Контрольована помилка 500 лише в середовищі Testing
+GET {{baseUrl}}/postings
+X-PR46-Fault: 500
+
+### Тимчасова недоступність 503 лише в середовищі Testing
+GET {{baseUrl}}/postings
+X-PR46-Fault: 503
+
+### Сервер недоступний — транспортна помилка без статус-коду
+# Зупиніть лише сервер цієї ПР і повторіть запит.
+GET {{baseUrl}}/postings

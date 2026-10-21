@@ -1,0 +1,6 @@
+**/bin/
+**/obj/
+verification/
+screenshots/
+*.log
+refactor_client.py
